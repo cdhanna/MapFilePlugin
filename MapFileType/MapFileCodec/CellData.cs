@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace MapFileCodec
 {
+    [Serializable]
     public struct CellData
     {
-        public byte ChannelR, ChannelG, ChannelB; 
+        public byte ChannelR, ChannelG, ChannelB, ChannelA; 
+
+        
     }
 }

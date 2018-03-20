@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MapFileCodec
 {
+    [Serializable]
     public class MapFile
     {
         public int Width { get; set; }
@@ -23,11 +24,12 @@ namespace MapFileCodec
 
         public CellData[] GetData(int x, int y)
         {
-
+            throw new NotImplementedException();
         }
 
         public CellData GetData(int layerIndex, int x, int y)
         {
+            throw new NotImplementedException();
 
         }
 

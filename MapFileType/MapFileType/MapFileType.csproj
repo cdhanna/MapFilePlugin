@@ -55,6 +55,12 @@
     <Compile Include="MapType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MapFileCodec\MapFileCodec.csproj">
+      <Project>{6A44072F-8470-4BA1-8679-BE522F064053}</Project>
+      <Name>MapFileCodec</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

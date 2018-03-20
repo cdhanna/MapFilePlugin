@@ -43,7 +43,6 @@
     <Compile Include="CellData.cs" />
     <Compile Include="MapFile.cs" />
     <Compile Include="MapFileCodec.cs" />
-    <Compile Include="MapLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
