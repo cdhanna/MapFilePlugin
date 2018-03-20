@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +26,35 @@ namespace MapFileCodec
 
         public static MapFile FromBytes(byte[] bytes)
         {
+            //return new MapFile()
+            //{
+            //    Width = 32,
+            //    Height = 32
+            //};
+            var formatter = new BinaryFormatter();
+            formatter.Binder = new PreMergeToMergedDeserializationBinder();
 
+            return (MapFile)formatter.Deserialize(new MemoryStream(bytes));
         }
 
+    }
+
+    sealed class PreMergeToMergedDeserializationBinder : SerializationBinder
+    {
+        public override Type BindToType(string assemblyName, string typeName)
+        {
+            Type typeToDeserialize = null;
+
+            // For each assemblyName/typeName that you want to deserialize to
+            // a different type, set typeToDeserialize to the desired type.
+            String exeAssembly = Assembly.GetExecutingAssembly().FullName;
+
+
+            // The following line of code returns the type.
+            typeToDeserialize = Type.GetType(String.Format("{0}, {1}",
+                typeName, exeAssembly));
+
+            return typeToDeserialize;
+        }
     }
 }

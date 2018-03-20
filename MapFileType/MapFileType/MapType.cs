@@ -77,7 +77,33 @@ namespace MapFileType
             var bytes = StreamHelper.ReadToEnd(input);
             var file = MapFileCodec.Converter.FromBytes(bytes);
 
-            
+            var doc = new Document(file.Width, file.Height);
+
+            for (var i = 0; i < file.LayerCount; i++)
+            {
+                var layer = new BitmapLayer(file.Width, file.Height);
+                layer.Name = file.LayerNames[i];
+                for (var y = 0; y < file.Height; y++)
+                {
+                    for (var x = 0; x < file.Width; x++)
+                    {
+                        var p = file.LayerData[i][y * file.Width + x];
+                        layer.Surface[x, y] = new ColorBgra()
+                        {
+                            R = p.ChannelR,
+                            G = p.ChannelG,
+                            B = p.ChannelB,
+                            A = p.ChannelA,
+                        };
+
+                    }
+                }
+                doc.Layers.Add(layer);
+
+            }
+
+
+            return doc;
         }
     }
 }
