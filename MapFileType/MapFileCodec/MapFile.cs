@@ -24,13 +24,17 @@ namespace MapFileCodec
 
         public CellData[] GetData(int x, int y)
         {
-            throw new NotImplementedException();
+            var output = new CellData[LayerCount];
+            for (var i = 0; i < LayerCount; i++)
+            {
+                output[i] = GetData(i, x, y);
+            }
+            return output;
         }
 
         public CellData GetData(int layerIndex, int x, int y)
         {
-            throw new NotImplementedException();
-
+            return LayerData[layerIndex][y * Width + x];
         }
 
         public CellData GetData(string layerName, int x, int y)

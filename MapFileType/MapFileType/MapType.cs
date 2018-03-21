@@ -12,13 +12,28 @@ namespace MapFileType
     public class MapType : FileType
     {
         public MapType()
-            : base("Map File", FileTypeFlags.SupportsSaving | FileTypeFlags.SupportsLoading | FileTypeFlags.SupportsLayers, new string[] { ".mft"})
+            : base("Map File", FileTypeFlags.SupportsSaving | FileTypeFlags.SupportsLoading | FileTypeFlags.SupportsLayers | FileTypeFlags.SupportsCustomHeaders, new string[] { ".mft"})
         {
+        }
+
+        protected override SaveConfigToken OnCreateDefaultSaveConfigToken()
+        {
+            return base.OnCreateDefaultSaveConfigToken();
+        }
+
+        protected override SaveConfigToken GetSaveConfigTokenFromSerializablePortion(object portion)
+        {
+            return base.GetSaveConfigTokenFromSerializablePortion(portion);
+        }
+
+        protected override object GetSerializablePortionOfSaveConfigToken(SaveConfigToken token)
+        {
+            return base.GetSerializablePortionOfSaveConfigToken(token);
         }
 
         protected override void OnSave(Document input, Stream output, SaveConfigToken token, Surface scratchSurface, ProgressEventHandler callback)
         {
-
+            
             var layerCount = input.Layers.Count;
 
             var layerNames = new string[layerCount];
