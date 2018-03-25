@@ -31,7 +31,7 @@ namespace MapFileCodec
             //    Width = 32,
             //    Height = 32
             //};
-            if (bytes.Length == 1)
+            if (bytes.Length <= 1)
             {
                 return DefaultMapFiles.DefaultPattern(new string[] { "rooms", "walkable" },
                     new CellData[] { new CellData() { ChannelA = 255, ChannelR = 128, ChannelG = 128, ChannelB = 128 },
