@@ -43,6 +43,7 @@ namespace MapFileType
             {
                 var layer = input.Layers.GetAt(i);
                 layerNames[i] = layer.Name;
+                
                 using (RenderArgs ra = new RenderArgs(new PaintDotNet.Surface(input.Size)))
                 {
                     //You must call this to prepare the bitmap
@@ -54,12 +55,13 @@ namespace MapFileType
                         for (var x = 0; x < input.Size.Width; x++)
                         {
                             var pixel = bitmap.GetPixel(x, y);
+                            byte alpha = (byte)(255 * Math.Floor(((float)pixel.A) / layer.Opacity));
                             layerDatas[i][y * input.Size.Width + x] = new CellData()
                             {
                                 ChannelR = pixel.R,
                                 ChannelG = pixel.G,
                                 ChannelB = pixel.B,
-                                ChannelA = pixel.A
+                                ChannelA = alpha
                             };
 
                         }
@@ -89,6 +91,9 @@ namespace MapFileType
 
         protected override Document OnLoad(Stream input)
         {
+
+            
+
             var bytes = StreamHelper.ReadToEnd(input);
             var file = MapFileCodec.Converter.FromBytes(bytes);
 

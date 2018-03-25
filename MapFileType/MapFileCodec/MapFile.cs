@@ -6,6 +6,30 @@ using System.Threading.Tasks;
 
 namespace MapFileCodec
 {
+
+    public static class DefaultMapFiles
+    {
+        public static MapFile DefaultPattern(string[] names, CellData[] datas, int x, int y)
+        {
+            var output = new MapFile();
+            output.Width = x;
+            output.Height = y;
+            output.LayerCount = names.Length;
+            output.LayerNames = names;
+            output.LayerData = new CellData[names.Length][];
+            for (var i = 0; i < names.Length; i++)
+            {
+                output.LayerData[i] = new CellData[x * y];
+                for (var j = 0; j < x*y; j++)
+                {
+                    output.LayerData[i][j] = datas[i];
+                }
+            }
+            return output;
+        }
+
+    }
+
     [Serializable]
     public class MapFile
     {
@@ -16,6 +40,7 @@ namespace MapFileCodec
         public string[] LayerNames { get; set; }
         public int LayerCount { get; set; }
         public string Name { get; set; }
+
 
         public MapFile()
         {
